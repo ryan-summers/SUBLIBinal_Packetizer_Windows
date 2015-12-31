@@ -70,3 +70,8 @@ int writeSerial(HANDLE port, char *data, int byteCount)
 	
 	return (int)bytesWritten;
 }
+
+void closeSerial(HANDLE portHandle)
+{
+	CloseHandle(portHandle);
+}
