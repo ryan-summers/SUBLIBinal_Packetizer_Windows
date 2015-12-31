@@ -9,7 +9,10 @@
 
 
 //Forward Declaractions
-void readBytes(HANDLE port, int count, char *buffer);
+int configureSerial(HANDLE port, int baudRate);
+int readSerial(HANDLE port, char *data, int byteCount);
+int writeSerial(HANDLE port, char *data, int byteCount);
 HANDLE openSerial(char *port, int baudrate);
+void closeSerial(HANDLE port);
 
 #endif
