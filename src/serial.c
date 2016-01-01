@@ -20,7 +20,7 @@
 int configureSerial(HANDLE port_handle, int baudrate)
 {
 	DCB config = {0};
-	onfig.DCBlength = sizeof(config);
+	config.DCBlength = sizeof(config);
 	
 	if (GetCommState(port_handle, &config) == 0) {
 		printf("Unable to get configuration of port. Error: %d", GetLastError());
@@ -67,11 +67,13 @@ HANDLE openSerial(char *port, int baudrate) {
 
 int readSerial(HANDLE port, char *data, int byteCount) 
 {
-	DWORD bytesRead;
-	int result = ReadFile(port, data, byteCount, &bytesRead, 0);
-	
-	if (result == 0)
-		printf("Error in Read: %d\n", GetLastError());
+	DWORD bytesRead = 0, tmp;
+	while (bytesRead < byteCount)
+	{
+		int result = ReadFile(port, &(data[bytesRead]), byteCount-bytesRead, &tmp, 0);
+		bytesRead += tmp;
+		if (result == 0)
+			printf("Error in Read: %d\n", GetLastError());
 	}
 	return (int)bytesRead;
 }

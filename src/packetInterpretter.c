@@ -75,7 +75,7 @@ void getSync (HANDLE portHandle, char controlByte) {
 int readPacket(HANDLE port, char controlByte, char *data) {
 	
 	char header;
-	int sizeByte;
+	char sizeByte;
 	
 	readSerial(port, &header, 1);
 	
@@ -89,7 +89,7 @@ int readPacket(HANDLE port, char controlByte, char *data) {
 		sizeByte = -1;
 	}
 	
-	return sizeByte;
+	return (int)sizeByte;
 }
 
 int writePacket(HANDLE port, char control, char *data, int byteCount)
